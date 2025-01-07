@@ -1,6 +1,7 @@
 package com.ems.project.controller;
 
 import com.ems.project.entity.Grievance;
+import com.ems.project.service.GrievanceService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +12,10 @@ import java.util.List;
 public class GrievanceController {
 
     private final GrievanceService grievanceService;
+
+    public GrievanceController(GrievanceService grievanceService) {
+        this.grievanceService = grievanceService;
+    }
 
     @PostMapping
     public Grievance saveGrievance (@RequestBody Grievance grievance){

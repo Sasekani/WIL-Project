@@ -1,6 +1,7 @@
 package com.ems.project.controller;
 
 import com.ems.project.entity.Salary;
+import com.ems.project.service.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,10 @@ import java.util.List;
 public class SalaryController {
 
     private final SalaryService salaryService;
+
+    public SalaryController(SalaryService salaryService) {
+        this.salaryService = salaryService;
+    }
 
     @PostMapping
     public Salary createSalary(@RequestBody Salary salary) {

@@ -1,6 +1,7 @@
 package com.ems.project.controller;
 
 import com.ems.project.entity.Payslip;
+import com.ems.project.service.PayslipService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +11,10 @@ import java.util.List;
 public class PayslipController {
 
     private final PayslipService payslipService;
+
+    public PayslipController(PayslipService payslipService) {
+        this.payslipService = payslipService;
+    }
 
     @PostMapping
     public Payslip save(@RequestBody Payslip payslip) {

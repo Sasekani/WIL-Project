@@ -1,6 +1,7 @@
 package com.ems.project.controller;
 
 import com.ems.project.entity.LeaveDetails;
+import com.ems.project.service.LeaveService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,14 +14,18 @@ public class LeaveController {
 
     private final LeaveService leaveService;
 
+    public LeaveController(LeaveService leaveService) {
+        this.leaveService = leaveService;
+    }
+
     @PostMapping
     private LeaveDetails applyLeave(@RequestBody LeaveDetails leaveDetails) {
-        return  leaveService.applyLeave(LeaveDetails);
+        return  leaveService.applyLeave(leaveDetails);
     }
 
     @GetMapping
     public List<LeaveDetails> getAllLeaves() {
-        List<LeaveDetails> leaves =leaveService.getAlLeaves();
+        List<LeaveDetails> leaves =leaveService.getAllLeaves();
         return leaves;
     }
 
@@ -35,7 +40,7 @@ public class LeaveController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<LeaveDetails> getLeaveDetailsById(@PathVariable long id) {
-        LeaveDetails leaveDetails = leaveService.getLeaveDetailsById(id);
+        LeaveDetails leaveDetails = leaveService.getLeaveById(id);
         if (leaveDetails != null) {
             return ResponseEntity.ok(leaveDetails);
         } else {

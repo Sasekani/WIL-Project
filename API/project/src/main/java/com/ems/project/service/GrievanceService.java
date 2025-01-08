@@ -12,10 +12,12 @@ public class GrievanceService {
     private final GrievanceRepository grievanceRepository;
 
     public GrievanceService(GrievanceRepository grievanceRepository) {
+
         this.grievanceRepository = grievanceRepository;
     }
 
-    public List<Grievance> getGrievance() {
+    public List<Grievance> getGrievances() {
+
         return grievanceRepository.findAll();
     }
 
@@ -28,7 +30,7 @@ public class GrievanceService {
     }
 
     public Grievance getGrievanceDetailsById(long id) {
-        return grievanceRepository.findById(id).orElse(null);
+        return grievanceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Grievance not found with id: " + id));
     }
 
     public Grievance updateGrievanceDetails(long id, Grievance grievance) {

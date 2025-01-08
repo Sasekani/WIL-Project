@@ -37,10 +37,5 @@ public class StatusService {
         return statusRepository.findByGrievance(grievance);
     }
 
-    public Status createStatus(Grievance grievance, String statusValue) {
-        Status status = new Status();
-        status.setGrievance(grievance);
-        status.setStatus(statusValue); // Assuming you have a single 'status' field now
-        return statusRepository.save(status);
-    }
+
 }

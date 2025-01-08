@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/Grievance")
+@RequestMapping("/grievance")
 public class GrievanceController {
 
     private final GrievanceService grievanceService;
@@ -24,17 +24,17 @@ public class GrievanceController {
 
     @GetMapping("/{email}")
     public Grievance findByEmail(@PathVariable String email) {
-        return grievanceService.getByEmail(email);
+        return grievanceService.getGrievanceByEmail(email);
     }
 
     @GetMapping
-    public List<Grievance> getAllGrievance() {
-        return grievanceService.getGrievance();
+    public List<Grievance> getAllGrievances() {
+        return grievanceService.getGrievances();
     }
 
     @GetMapping("/{id}")
     public Grievance getById(@PathVariable Long id) {
-        Grievance grievance = grievanceService.getById(id);
+        Grievance grievance = grievanceService.getGrievanceDetailsById(id);
 
             return  grievance;
 
@@ -44,7 +44,7 @@ public class GrievanceController {
     @PutMapping("/{id}")
     public Grievance updateGrievance(@PathVariable Long id, @RequestBody Grievance grievance) {
 
-        Grievance updatedDetails = grievanceService.updateGrievance(id, grievance);
+        Grievance updatedDetails = grievanceService.updateGrievanceDetails(id, grievance);
         return  updatedDetails;
     }
 }

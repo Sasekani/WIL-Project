@@ -4,11 +4,11 @@ import com.ems.project.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

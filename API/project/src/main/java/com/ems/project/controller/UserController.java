@@ -44,7 +44,7 @@ public class UserController {
 
     }
 
-    @PutMapping("/admin/update/{userId}")
+    @PutMapping("/admin/update/{id}")
     public ResponseEntity<ReqRes> updateUser(@PathVariable Long id, @RequestBody User user){
         return ResponseEntity.ok(usersManagementService.updateUser(id, user));
     }
@@ -57,7 +57,7 @@ public class UserController {
         return  ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @DeleteMapping("/admin/delete/{userId}")
+    @DeleteMapping("/admin/delete/{id}")
     public ResponseEntity<ReqRes> deleteUSer(@PathVariable Long id){
         return ResponseEntity.ok(usersManagementService.deleteUser(id));
     }

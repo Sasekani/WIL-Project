@@ -1,0 +1,36 @@
+<!-- <nav class="Grievances p-2 bg-primary text-white" style="text-align: center;">
+    <span class="Grievances-brand mb-0 h1">List of Grievances</span>
+  </nav> -->
+  <div class="container">
+    <button   (click)="goToDashBoard()"  class="reg-button">Back</button>
+  </div>
+  <div class="container">
+    <h2>List of Grievances</h2>
+    <table class = "table table-striped">
+        <thead>
+          <tr >
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">CreatedDate</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <th *ngIf ="profileInfo?.ourUsers?.role === 'ADMIN'"  scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody  >
+          <tr *ngFor="let logGrievances of grievanceArray">
+
+            <td>{{logGrievances.id}}</td>
+            <td >{{logGrievances.email}}</td>
+            <td>{{logGrievances.createdDate}}</td>
+            <td>{{logGrievances.title}}</td>
+            <td >{{logGrievances.description}}</td>
+            <td>{{logGrievances.status}}</td>
+             <td><button *ngIf ="profileInfo?.ourUsers?.role === 'ADMIN'" class="reg-button"  (click)="goToGrievanceList()">Update</button></td>
+          </tr>
+        </tbody>
+    
+      </table>
+  </div>
+  

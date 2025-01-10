@@ -1,0 +1,41 @@
+<p>leave-details works!</p>
+
+<div class="content-wrapper">
+    <div>
+        <button   (click)="goToDashBoard()"  class="reg-button">Back</button>
+      </div>
+    <h1 class="heading"> Leave Request Form </h1>
+    <!-- <img src="/src/assets/image.jpg.jpeg" alt="" class="image-style"> -->
+    <!-- <img src="assets/image.jpg.jpeg" alt="Image Description" class="image-style"> -->
+    
+    
+    <form [formGroup]="leaveForm">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" class="form-control" id="email" formControlName="email">
+      </div>
+      <div class="form-group">
+        <label for="leaveType">Leave Type:</label>
+        <select class="leavetype" id="leaveType" formControlName="leaveType">
+          <option value="">Select Leave Type</option>
+          <option value="sick">Sick Leave</option>
+          <option value="vacation">Vacation Leave</option>
+          <!-- Removed duplicate options -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" class="form-control" id="startDate" formControlName="startDate">
+      </div>
+      <div class="form-group">
+        <label for="endDate">End Date:</label>
+        <input type="date" class="form-control" id="endDate" formControlName="endDate">
+      </div>
+      <div class="form-group">
+        <label for="reason">Reason:</label>
+        <textarea class="reason" id="reason" formControlName="reason"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="applyLeave()" [routerLink]='["/leave-details-list"]'>Apply</button>
+    </form>
+    
+    </div>

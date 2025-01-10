@@ -1,0 +1,45 @@
+
+<h1>Employee List</h1>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Employee Name</th>
+        <th scope="col">Leave Type</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Reason</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let leaveDetail of leaveDetails; index as i">
+        <th></th>
+
+       
+        <td>{{leaveDetail.name}}</td>
+        <td>{{leaveDetail.leaveType}}</td>
+        <td>{{leaveDetail.startDate}}</td>
+        <td>{{leaveDetail.endDate}}</td>
+        <td>{{leaveDetail.reason}}</td>
+        <td>{{leaveDetail.status}}</td>
+      
+
+        <td>
+          <button *ngIf="isManager"  [routerLink]='["/update-status",leaveDetail.id]'>Update Status</button>
+        </td>
+
+          <!-- <td>
+            <select *ngIf="isManager" [(ngModel)]="leaveDetail.status" (change)="updateStatus(i, leaveDetail.status)">
+              <option value="approve">Approve</option>
+              <option value="reject">Reject</option>
+              <option selected="pending">Pending</option>
+            </select>
+          </td> -->
+   
+      </tr>
+    </tbody>
+  </table>
+  
+

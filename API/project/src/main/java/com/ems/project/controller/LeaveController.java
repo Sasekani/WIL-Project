@@ -25,11 +25,10 @@ public class LeaveController {
 
     @GetMapping
     public List<LeaveDetails> getAllLeaves() {
-        List<LeaveDetails> leaves =leaveService.getAllLeaves();
-        return leaves;
+        return leaveService.getAllLeaves();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/details/{id}")
     public ResponseEntity<LeaveDetails> updateLeaveDetails(@PathVariable long id, @RequestBody LeaveDetails leaveDetails) {
         try {
             LeaveDetails updatedLeaveDetails = leaveService.updateLeaveDetails(id, leaveDetails);
@@ -48,13 +47,9 @@ public class LeaveController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<LeaveDetails> updateLeaveRequestStatus(@PathVariable Long id,
-                                                                 @RequestParam String status)
-    {
+    @PutMapping("/status/{id}")
+    public ResponseEntity<LeaveDetails> updateLeaveRequestStatus(@PathVariable Long id, @RequestParam String status) {
         LeaveDetails updatedLeaveDetail = leaveService.updateLeaveRequestStatus(id, status);
         return ResponseEntity.ok(updatedLeaveDetail);
-
-
     }
 }

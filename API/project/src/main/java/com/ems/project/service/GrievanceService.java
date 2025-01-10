@@ -6,6 +6,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GrievanceService {
@@ -17,11 +18,10 @@ public class GrievanceService {
     }
 
     public List<Grievance> getGrievances() {
-
         return grievanceRepository.findAll();
     }
 
-    public Grievance saveGrievance(Grievance grievance){
+    public Grievance saveGrievance(Grievance grievance) {
         return grievanceRepository.save(grievance);
     }
 
@@ -29,9 +29,10 @@ public class GrievanceService {
         return grievanceRepository.findByEmail(email);
     }
 
-    public Grievance getGrievanceDetailsById(long id) {
-        return grievanceRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Grievance not found with id: " + id));
+    public Optional<Grievance> getGrievanceDetailsById(long id) {
+        return grievanceRepository.findById(id);
     }
+
 
     public Grievance updateGrievanceDetails(long id, Grievance grievance) {
         return grievanceRepository.findById(id)
@@ -42,6 +43,6 @@ public class GrievanceService {
                     existingGrievanceDetails.setStatus(grievance.getStatus());
                     return grievanceRepository.save(existingGrievanceDetails);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("LeaveDetails not found with id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Grievance not found with id: " + id));
     }
 }

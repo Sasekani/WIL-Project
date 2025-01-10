@@ -4,11 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -19,4 +19,13 @@ public class Salary {
     private Long id;
 
     private double amount;
+
+    public double getAmount() {
+        return amount;
+    }
+
+    // Explicitly add the setter method for amount (if needed)
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 }

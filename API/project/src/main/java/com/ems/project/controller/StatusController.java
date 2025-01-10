@@ -23,16 +23,17 @@ public class StatusController {
         this.grievanceService = grievanceService;
     }
 
-    @PostMapping("/grievance/{grievanceId}") // Create status for a specific grievance
+    @PostMapping("/grievance/{grievanceId}")
     public ResponseEntity<Status> createStatus(@PathVariable Long grievanceId, @RequestBody Status status) {
         try {
-            Grievance grievance = grievanceService.getGrievanceDetailsById(grievanceId).orElseThrow(() -> new NoSuchElementException("Grievance not found"));
-            Status createdStatus = statusService.createStatus(grievance, status.getStatus()); // Use the correct createStatus method
+            Grievance grievance = grievanceService.getGrievanceDetailsById(grievanceId)
+                    .orElseThrow(() -> new NoSuchElementException("Grievance not found"));
+            status.setGrievance(grievance);
+            Status createdStatus = statusService.saveStatus(status);
             return new ResponseEntity<>(createdStatus, HttpStatus.CREATED);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @GetMapping("/{id}")
@@ -51,20 +52,24 @@ public class StatusController {
     @GetMapping("/grievance/{grievanceId}")
     public ResponseEntity<List<Status>> getStatusesByGrievance(@PathVariable Long grievanceId) {
         try {
-            Grievance grievance = grievanceService.getGrievanceDetailsById(grievanceId).orElseThrow(() -> new NoSuchElementException("Grievance not found"));
+            Grievance grievance = grievanceService.getGrievanceDetailsById(grievanceId)
+                    .orElseThrow(() -> new NoSuchElementException("Grievance not found"));
             List<Status> statuses = statusService.getStatusesByGrievance(grievance);
             return ResponseEntity.ok(statuses);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
-    @PutMapping("/{id}") // Update by ID
+    @PutMapping("/{id}")
     public ResponseEntity<Status> updateStatus(@PathVariable Long id, @RequestBody Status status) {
         try {
-            Status existingStatus = statusService.getStatusById(id).orElseThrow(() -> new NoSuchElementException("Status not found"));
-            existingStatus.setStatus(status.getStatus()); // Update the necessary fields
+            Status existingStatus = statusService.getStatusById(id)
+                    .orElseThrow(() -> new NoSuchElementException("Status not found"));
+            existingStatus.setOpen(status.getOpen());
+            existingStatus.setIN_PROGRESS(status.getIN_PROGRESS());
+            existingStatus.setRESOLVED(status.getRESOLVED());
+            existingStatus.setCLOSED(status.getCLOSED());
             Status updatedStatus = statusService.saveStatus(existingStatus);
             return ResponseEntity.ok(updatedStatus);
         } catch (NoSuchElementException e) {

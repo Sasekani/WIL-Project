@@ -1,11 +1,11 @@
 package com.ems.project.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,15 +24,56 @@ public class Payslip {
     @OneToOne(cascade = CascadeType.ALL)
     private Salary salary;
 
-    public void setDeductions(double deductions) {
-        this.deductions = deductions;
-        calculateNetSalary();
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public double getGrossPay() {
+        return grossPay;
+    }
+
+    public double getDeductions() {
+        return deductions;
+    }
+
+    public double getNetPay() {
+        return netPay;
+    }
+
+    public String getPayPeriod() {
+        return payPeriod;
+    }
+
+    public Salary getSalary() {
+        return salary;
+    }
+
+
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setGrossPay(double grossPay) {
         this.grossPay = grossPay;
         calculateNetSalary();
+    }
 
+    public void setDeductions(double deductions) {
+        this.deductions = deductions;
+        calculateNetSalary();
+    }
+
+    public void setNetPay(double netPay) {
+        this.netPay = netPay;
+    }
+
+    public void setPayPeriod(String payPeriod) {
+        this.payPeriod = payPeriod;
     }
 
     public void setSalary(Salary salary) {
@@ -50,5 +91,4 @@ public class Payslip {
     public void calculateNetSalary() {
         this.netPay = this.grossPay - this.deductions;
     }
-
 }

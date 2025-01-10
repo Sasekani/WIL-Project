@@ -5,6 +5,7 @@ import com.ems.project.service.GrievanceService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @CrossOrigin("*")
@@ -34,11 +35,9 @@ public class GrievanceController {
 
     @GetMapping("/{id}")
     public Grievance getById(@PathVariable Long id) {
-        Grievance grievance = grievanceService.getGrievanceDetailsById(id);
-
-            return  grievance;
-
-
+        // Updated to handle Optional<Grievance>
+        return grievanceService.getGrievanceDetailsById(id)
+                .orElseThrow(() -> new NoSuchElementException("Grievance not found with id: " + id));
     }
 
     @PutMapping("/{id}")

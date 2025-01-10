@@ -1,0 +1,33 @@
+<div class="container">
+
+    <form>
+
+        <div class="form-group">
+            <label for="">Email</label>
+            <input type="String" [(ngModel)]="email" [ngModelOptions]="{standalone:true}" class="form-control" id="email" placeholder="example@gmail.com">
+        
+          </div>
+
+        <div class="form-group">
+          <label for="">Amount</label>
+          <input type="number" [(ngModel)]="grossPay" [ngModelOptions]="{standalone:true}" class="form-control" id="grossPay" placeholder="Amount">
+      
+        </div>
+          <div class="form-group">
+            <label for="">Deductions</label>
+            <!-- <input type="number"   class="form-control" id=""  placeholder="Enter User ID"> -->
+            <input type="number" [(ngModel)]="deductions" [ngModelOptions]="{standalone:true}" class="form-control" id="deductions" placeholder="deductions">
+          </div>
+      
+          <div class="form-group">
+            <label for="">Pay Date</label>
+            <!-- <input type="number"   class="form-control" id=""  placeholder="Enter User ID"> -->
+            <input  type="date" [(ngModel)]="payPeriod" [ngModelOptions]="{standalone:true}" class="form-control" id="payPeriod" placeholder="dd/mm/yyyy" >
+          </div>
+         
+          <button (click)="save() " class="btn btn-primary">Pay</button>
+        </form>
+
+</div>
+
+

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/Leave")
+@RequestMapping("/leave")
 public class LeaveController {
 
     private final LeaveService leaveService;

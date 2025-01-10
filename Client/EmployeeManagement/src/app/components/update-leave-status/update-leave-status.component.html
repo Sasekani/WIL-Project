@@ -1,0 +1,21 @@
+<div class="container">
+   
+    <h1 class="h1">Update Leave Status</h1>
+  
+    <form [formGroup]="leaveForm" (ngSubmit)="updateLeaveStatus()">
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <select class="form-control" id="status" formControlName="status">
+          <option value="">Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Update Status</button>
+    </form>
+    <br>
+    <div>
+        <button (click)="goToDashBoard()" class="reg-button">Back</button>
+      </div>
+  </div>

@@ -1,0 +1,21 @@
+<div class="container">
+   
+    <h1 class="h1">Update Grievance Status</h1>
+  
+    <form [formGroup]="grievanceForm" (ngSubmit)="updateGrievanceDetails()">
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <select class="form-control" id="status" formControlName="status">
+          <option value="">Select Status</option>
+          <option value="In-progress">In-progress</option>
+          <option value="Resolved">Resolved</option>
+          <option value="Closed">Closed</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Update Status</button>
+    </form>
+    <br>
+    <div>
+        <button  (click)="goToDashBoard()" class="reg-button">Back</button>
+      </div>
+  </div>

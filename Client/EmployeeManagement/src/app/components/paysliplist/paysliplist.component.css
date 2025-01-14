@@ -1,0 +1,19 @@
+.payslip-container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center horizontally */
+  }
+  
+  .no-payslips-message {
+    text-align: center; /* Center the text within the paragraph */
+    margin-top: 10px; /* Add some spacing above the message */
+    font-style: italic; /*optional*/
+    color:gray; /*optional*/
+  
+  }
+  
+  /* Existing styles for .container and table */
+  .container {
+      text-align: left; /* Align the back button to the left */
+      margin-bottom: 20px;
+  }

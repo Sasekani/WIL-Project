@@ -1,0 +1,37 @@
+#container {
+    display: flex; /* Make the container a flexbox */
+    justify-content: space-around; /* Distribute items horizontally with space between them */
+    align-items: center; /* Align items vertically */ 
+    min-height: 100vh;/* Add right margin */
+  }
+  
+  .payslip, .leave, .grievance {
+    display: flex; /* Make each section a flexbox for potential inner alignment */
+    flex-direction: column; /* Stack content vertically within each section */
+    align-items: center;
+    margin: 20px;
+    text-align: center; /* Center content horizontally within each section */
+  }
+  
+  .payslip img, .leave img, .grievance img {
+    margin-bottom: 15px;
+    max-width: 200px;
+    height: auto; /* Add spacing between image and buttons */
+  }
+
+  #btProfile {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    padding: 12px 20px; /* Increased padding */
+    font-size: 1.1rem; /* Increased font size */
+    border: none;
+    border-radius: 5px;
+    margin: 5px; /* Add margin between buttons */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    width: 100%;
+}
+
+#btProfile:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}

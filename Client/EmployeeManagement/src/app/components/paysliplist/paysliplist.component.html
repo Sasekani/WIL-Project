@@ -1,35 +1,34 @@
 <div class="container">
-    <button (click)="goToDashBoard()" class="reg-button">Back</button>
+  <button (click)="goToDashBoard()" class="reg-button">Back</button>
+</div>
+
+<div class="payslip-container">  <h2>Your Payslips</h2>
+  <div *ngIf="payslips.length === 0">
+    <p class="no-payslips-message">No payslips available.</p>
   </div>
-  
-  <div class="container">
-    <h2>Your Payslips</h2>
-    <div *ngFor="let payslip of payslips">
-      <table class="table table-striped" id="payslips">
-        <thead>
-          <tr>
-            <th>User ID</th>
-            <th>User Email</th>
-            <th>Gross Pay</th>
-            <th>Deductions</th>
-            <th>Net Pay</th>
-            <th>Pay Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr >  
-            <td>{{payslip.payslipId}}</td>
-            <td>{{payslip.email}}</td>
-            <td>{{payslip.grossPay}}</td>
-            <td>{{payslip.deductions}}</td>
-            <td>{{payslip.netPay}}</td>
-            <td>{{payslip.payPeriod}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <button (click)="downloadFile()">Download Payslips</button>
-    </div>
-    <div *ngIf="payslips.length === 0">
-      No payslips available.
-    </div>
+  <div *ngFor="let payslip of payslips">
+    <table class="table table-striped" id="payslips">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>User Email</th>
+          <th>Gross Pay</th>
+          <th>Deductions</th>
+          <th>Net Pay</th>
+          <th>Pay Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{payslip.payslipId}}</td>
+          <td>{{payslip.email}}</td>
+          <td>{{payslip.grossPay}}</td>
+          <td>{{payslip.deductions}}</td>
+          <td>{{payslip.netPay}}</td>
+          <td>{{payslip.payPeriod}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="downloadFile()">Download Payslips</button>
   </div>
+</div>

@@ -8,6 +8,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 public class UserController {
 
@@ -16,6 +20,8 @@ public class UserController {
     public UserController(UserManagementService usersManagementService) {
         this.usersManagementService = usersManagementService;
     }
+
+
 
     @PostMapping("/auth/register")
     public ResponseEntity<ReqRes> regeister(@RequestBody ReqRes reg){
@@ -32,16 +38,13 @@ public class UserController {
         return ResponseEntity.ok(usersManagementService.refreshToken(req));
     }
 
+
     @GetMapping("/admin/get-all-users")
-    public ResponseEntity<ReqRes> getAllUsers(){
-        return ResponseEntity.ok(usersManagementService.getAllUsers());
-
-    }
-
-    @GetMapping("/admin/get-users/{id}")
-    public ResponseEntity<ReqRes> getUSerByID(@PathVariable Long id){
-        return ResponseEntity.ok(usersManagementService.getUsersById(id));
-
+    public ResponseEntity<Map<String, List<User>>> getAllUsers(){ // Return a Map
+        List<User> userList = usersManagementService.getAllUsers(); // Calls the service method
+        Map<String, List<User>> response = new HashMap<>(); // Creates a Map
+        response.put("ourUsersList", userList); // Puts the list in the map
+        return ResponseEntity.ok(response); // Returns the Map // Return the Map
     }
 
     @PutMapping("/admin/update/{id}")

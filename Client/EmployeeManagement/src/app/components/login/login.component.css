@@ -21,7 +21,7 @@
 
 h2 {
     text-align: center;
-    background-color:#6D7B8D;
+    background-color: #212223;
     color: white;
     padding: 10px;
     margin-top: 0; /* Remove default top margin */
@@ -60,7 +60,7 @@ input[type="password"] {
 }
 
 button {
-    background-color: #007bff;
+    background-color: #212223;
     color: white;
     font-size: 1.1rem; 
     padding: 12px 18px;
@@ -71,7 +71,8 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #f28c28;
+    color: white;
 }
 
 .error-message {

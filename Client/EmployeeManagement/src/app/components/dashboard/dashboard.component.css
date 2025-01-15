@@ -4,6 +4,8 @@
     align-items: center; /* Align items vertically */ 
     min-height: 100vh;/* Add right margin */
     background-color: white;
+    border-radius: 16px;
+    margin: 100px 60px;
   }
   
   .payslip, .leave, .grievance {

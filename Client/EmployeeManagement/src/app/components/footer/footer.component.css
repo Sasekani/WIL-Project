@@ -1,20 +1,9 @@
-/* footer.component.css */
-.site-wrapper { /* Style the wrapper */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure the wrapper takes up at least the full viewport height */
-  }
-  
-  main {
-    flex: 1; /* Allow the main content to expand and fill available space */
-    padding: 20px; /* Add some padding to the main content */
-  }
-  
-  .footer {
-    padding: 10px;
-    background-color: #212223;
-    color: white;
-    text-align: center;
-    width: 100%;
-    font-family: sans-serif;
-  }
+.footer {
+  padding: 10px;
+  background-color: #212223;
+  color: white;
+  text-align: center;
+  width: 100%;
+  font-family: sans-serif;
+  box-sizing: border-box; /* Important: Include padding in width */
+}

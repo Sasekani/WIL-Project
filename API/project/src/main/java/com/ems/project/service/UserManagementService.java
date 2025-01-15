@@ -31,6 +31,7 @@ public class UserManagementService {
         this.passwordEncoder = passwordEncoder;
     }
 
+
     public ReqRes register(ReqRes registrationRequest){
         ReqRes resp = new ReqRes();
 
@@ -111,25 +112,8 @@ public class UserManagementService {
     }
 
 
-    public ReqRes getAllUsers() {
-        ReqRes reqRes = new ReqRes();
-
-        try {
-            List<User> result = userRepository.findAll();
-            if (!result.isEmpty()) {
-                reqRes.setUsers(result);
-                reqRes.setStatusCode(200);
-                reqRes.setMessage("Successful");
-            } else {
-                reqRes.setStatusCode(404);
-                reqRes.setMessage("No users found");
-            }
-            return reqRes;
-        } catch (Exception e) {
-            reqRes.setStatusCode(500);
-            reqRes.setMessage("Error occurred: " + e.getMessage());
-            return reqRes;
-        }
+    public List<User> getAllUsers() {
+        return userRepository.findAll(); // Or your logic to fetch all users
     }
 
 

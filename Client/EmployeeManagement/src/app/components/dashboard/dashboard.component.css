@@ -3,6 +3,7 @@
     justify-content: space-around; /* Distribute items horizontally with space between them */
     align-items: center; /* Align items vertically */ 
     min-height: 100vh;/* Add right margin */
+    background-color: white;
   }
   
   .payslip, .leave, .grievance {
@@ -20,7 +21,7 @@
   }
 
   #btProfile {
-    background-color: #007bff; /* Blue background */
+    background-color: #f28c28; /* Blue background */
     color: white; /* White text */
     padding: 12px 20px; /* Increased padding */
     font-size: 1.1rem; /* Increased font size */
@@ -33,5 +34,9 @@
 }
 
 #btProfile:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #ffaa33; /* Darker blue on hover */
+}
+
+h2 {
+  color: #f28c28;
 }

@@ -24,28 +24,24 @@ errorMessage:string = ''
 
 
 ngOnInit(): void {
-this.getUserById()
-
+  this.getUserById();
 }
 
-async getUserById(){
-this.userId = this.route.snapshot.paramMap.get('id')
-const token = localStorage.getItem('token')
-if(!this.userId || !token){
-this.showError("User ID or Token is Required")
-return;
-}
+async getUserById() {
+  this.userId = this.route.snapshot.paramMap.get('id');
+  const token = localStorage.getItem('token');
+  if (!this.userId || !token) {
+    this.showError("User ID or Token is Required");
+    return;
+  }
 
-try {
-let userDataResponse = await this.userService.getUsersById(this.userId, token)
-const {firstName,lastName, email,phoneNumber,gender,address, role} = userDataResponse.ourUsers
-this.userData = {firstName,lastName, email,phoneNumber,gender,address, role};
-
-} catch (error:any) {
-this.showError(error.message);
+  try {
+    let userDataResponse = await this.userService.getUsersById(this.userId, token);
+    this.userData = userDataResponse.ourUsers; // Update to directly assign the retrieved user data
+  } catch (error: any) {
+    this.showError(error.message);
+  }
 }
-}
-
 async updateUser(){
 const confitm = confirm("Are you sure you wanna update this user")
 if(!confirm) return

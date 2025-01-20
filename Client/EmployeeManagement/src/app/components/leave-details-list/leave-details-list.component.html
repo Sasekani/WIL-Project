@@ -1,39 +1,33 @@
-
-<h1 class="heading">Employee List For The Management System</h1>
-<br>
-<!-- <img src="assets/table1.jpg.jpeg"alt="table-image" class="table-image"> -->
-<div>
-    <button   (click)="goToDashBoard()"  class="reg-button">Back</button>
-  </div>
-<table style="width:400px" style="background-color:#f3f8f4" class="table " > 
+<h1 class="heading">Employee List</h1>
+<div *ngIf="loading">Loading leave details...</div> <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+<div *ngIf="!loading && leaveDetailsArray.length === 0 && !errorMessage">No leave details found.</div>
+<div *ngIf="!loading && leaveDetailsArray.length > 0">
+  <button (click)="goToDashBoard()" class="reg-button">Back</button>
+  <table class="table">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Email</th>
-        <th scope="col">Leave Type</th>
-        <th scope="col">Start Date</th>
-        <th scope="col">End Date</th>
-        <th scope="col">Reason</th>
-        <th scope="col">Status</th>
-        <th *ngIf ="profileInfo?.ourUsers?.role === 'ADMIN'"  scope="col">Action</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Leave Type</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Reason</th>
+        <th>Status</th>
+        <th>Action</th>
+        
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let leaveDetail of leaveDetailsArray">
-        <th></th>
-
-        
-        <!-- <td>{{leaveDetail.id}}</td> -->
-        <td>{{leaveDetail.email}}</td>
-        <td>{{leaveDetail.leaveType}}</td>
-        <td>{{leaveDetail.startDate}}</td>
-        <td>{{leaveDetail.endDate}}</td>
-        <td>{{leaveDetail.reason}}</td>
-        <td>{{leaveDetail.status}}</td>
-       <td><button *ngIf ="profileInfo?.ourUsers?.role === 'ADMIN'" class="reg-button"  (click)="goToUpdateStatus()">Update</button></td>
+        <td>{{ leaveDetail.name }}</td>
+        <td>{{ leaveDetail.email }}</td>
+        <td>{{ leaveDetail.leaveType }}</td>
+        <td>{{ leaveDetail.startDate | date }}</td>
+        <td>{{ leaveDetail.endDate | date }}</td>
+        <td>{{ leaveDetail.reason }}</td>
+        <td>{{ leaveDetail.status }}</td>
+        <button class="reg-button" (click)="goToUpdateStatus()">Update</button>
       </tr>
     </tbody>
   </table>
-
-  
-  
+</div>

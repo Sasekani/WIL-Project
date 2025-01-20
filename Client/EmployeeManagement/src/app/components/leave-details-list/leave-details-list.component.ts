@@ -3,56 +3,41 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeaveDetails } from '../../interface/leave-details';
 import { LeaveService } from '../../service/leave.service';
-import { UsersService } from '../../service/users.service';
+import { catchError, firstValueFrom, of } from 'rxjs';
 
 @Component({
   selector: 'app-leave-details-list',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './leave-details-list.component.html',
-  styleUrl: './leave-details-list.component.css'
+  styleUrls: ['./leave-details-list.component.css']
 })
-export class LeaveDetailsListComponent implements OnInit{
-
-  profileInfo: any;
+export class LeaveDetailsListComponent implements OnInit {
   errorMessage: string = '';
   leaveDetailsArray: LeaveDetails[] = [];
+  loading: boolean = true;
 
   constructor(
     private leaveService: LeaveService,
-    private router: Router,
-    private usersService: UsersService
+    private router: Router
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.loading = true; // Set loading to true initially
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error("No Token Found");
-      }
-
-      // Get the user's profile information
-      this.profileInfo = await this.usersService.getYourProfile(token);
-
-      // Get all leave details
-      this.leaveService.getLeaveDetails().subscribe(
-        (data: LeaveDetails[]) => {
-          if (this.profileInfo?.ourUsers?.role === 'ADMIN') {
-            // If the user is HR, show all leave details
-            this.leaveDetailsArray = data;
-          } else {
-            // For other roles, filter leave details to show only those matching the logged-in user's email
-            this.leaveDetailsArray = data.filter(leave => 
-              leave.email === this.profileInfo?.ourUsers?.email
-            );
-          }
-        },
-        error => {
+      this.leaveService.getLeaveDetails().pipe(
+        catchError(error => {
+          console.error("Error fetching leave details:", error);
           this.showError('Error fetching leave details');
-        }
-      );
+          return of([]); // Return an empty array in case of error
+        })
+      ).subscribe(data => {
+        this.leaveDetailsArray = data;
+        this.loading = false; // Set loading to false after data is received
+      });
     } catch (error: any) {
-      this.showError(error.message);
+      this.showError('Error fetching leave details');
+      this.loading = false; // Important: set loading to false even in catch block
     }
   }
 
@@ -70,5 +55,4 @@ export class LeaveDetailsListComponent implements OnInit{
       this.errorMessage = '';
     }, 3000);
   }
-
 }

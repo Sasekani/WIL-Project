@@ -2,13 +2,14 @@ package com.ems.project.controller;
 
 import com.ems.project.entity.Grievance;
 import com.ems.project.service.GrievanceService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@CrossOrigin("*")
 @RequestMapping("/grievance")
 public class GrievanceController {
 
@@ -19,8 +20,20 @@ public class GrievanceController {
     }
 
     @PostMapping
-    public Grievance saveGrievance (@RequestBody Grievance grievance){
-        return grievanceService.saveGrievance(grievance);
+    public ResponseEntity<Grievance> saveGrievance(@RequestBody Grievance grievance) {
+        try {
+            Grievance savedGrievance = grievanceService.saveGrievance(grievance);
+            return new ResponseEntity<>(savedGrievance, HttpStatus.CREATED); // 201 Created
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 500
+        }
+    }
+
+    @PostMapping("/test")
+    public String test(Grievance grievance) {
+        return grievance.getEmail();
     }
 
     @GetMapping("/{email}")

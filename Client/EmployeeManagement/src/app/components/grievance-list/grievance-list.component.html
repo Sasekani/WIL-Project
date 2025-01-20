@@ -15,7 +15,7 @@
             <th scope="col">Title</th>
             <th scope="col">Description</th>
             <th scope="col">Status</th>
-            <th *ngIf ="profileInfo?.ourUsers?.role === 'ADMIN'"  scope="col">Action</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody  >
@@ -27,7 +27,7 @@
             <td>{{logGrievances.title}}</td>
             <td >{{logGrievances.description}}</td>
             <td>{{logGrievances.status}}</td>
-             <td><button *ngIf ="profileInfo?.ourUsers?.role === 'ADMIN'" class="reg-button"  (click)="goToGrievanceList()">Update</button></td>
+             <td><button class="reg-button"  (click)="goToGrievanceList()">Update</button></td>
           </tr>
         </tbody>
     

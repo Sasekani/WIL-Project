@@ -1,53 +1,31 @@
+<div class="container">
+  <div class="container-fluid">
+    <!-- As a heading -->
+  </div>
 
+  <div style="color:rgb(7, 7, 7);" class="card">
+    <div><h2 class="heading"> Log Grievance Form </h2></div>
+    <form [formGroup]="GrievanceLogForm" (ngSubmit)="logGrievances()">
+      <div class="form-group">
+        <label>Email Address:</label>
+        <input type="email" class="form-control" id="email" required formControlName="email" placeholder="email@gmail.com">
+      </div>
+      <!-- Date the grievance was logged -->
+      <div class="form-group">
+        <label for="createdDate">Date Created:</label>
+        <input type="date" class="form-control" id="createdDate" formControlName="createdDate" placeholder="yyyy-MM-dd" required />      </div>
 
-<div class=" container">
-    <div class="container-fluid">
-        <!-- As a heading -->
-        
+      <div class="form-group">
+        <label>Title:</label>
+        <textarea class="title" id="title" rows="1" minlength="2" maxlength="5000" required formControlName="title" placeholder="Type of grievance or subject"></textarea>
       </div>
-      
-      
-          <div style="color:rgb(7, 7, 7);" class="card">
-          <div><h2 class="heading"> Log Grievance Form </h2></div>
-            <form [formGroup] = "GrievanceLogForm" onsubmit="return validateForm()">
-              <div class="form-group">
-      
-                <label>Email Address:</label>
-                <!-- <textarea class="form-control"  id="email" rows="1" minlength="8" maxlength="30" required formControlName="email"></textarea> -->
-                <input type="email" class="form-control" id="email" required formControlName="email" placeholder="email@gmail.com">
-              </div>
-              <!-- Date the grievance was logged -->
-              <div>
-            <label for=" createdDate" >Date Created:</label>
-                <input type ="Date" class="form-control" id ="createdDate" formControlName = "createdDate" placeholder= "yyyy-mm-dd" required="" />
-                <!-- <input type="String" class="form-control" id="date" required formControlName="ema" placeholder="dd/mm/yyyy"> -->
-              </div>
-      
-              <div class="form-group">
-                <label >Title:</label>
-                <textarea class="title"  id="title" pattern="[A-Za-z\s-]+" rows="1" minlength="10" maxlength="5000" required formControlName="title" placeholder="Type of grievance or subject"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="description">Description:</label>
-                <textarea class="description"  id="description" rows="3" minlength="200" maxlength="500" required formControlName="description"></textarea>
-              </div>
-              <button type="submit" class="btn" (click)="logGrievances()" routerLink="grievanceList">Submit</button>
-              <!-- <button type="submit" class="btn"   (click)="logGrievances()"  routerLink="grievanceList"   >Submit</button> -->
-            </form>
-         
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="description" id="description" rows="3" minlength="5" maxlength="500" required formControlName="description"></textarea>
       </div>
-         <!-- JavaScript validation -->
-        
-      <script>
-        function validateForm() {
-          const email = document.getElementById("email").value;
-          // Other validation checks for remaining fields
-          // ...
-          if (email.trim() === "") {
-            alert("Please enter a valid email address.");
-            return false;
-          }
-          return true;
-        }
-      </script>
+      <div class="button-container">
+        <button type="submit" class="btn">Submit</button>
+      </div>
+    </form>
+  </div>
 </div>

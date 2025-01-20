@@ -5,5 +5,6 @@ export interface GrievanceInterface {
     status: String,
     title: String,
     description:String,
+
    
 }

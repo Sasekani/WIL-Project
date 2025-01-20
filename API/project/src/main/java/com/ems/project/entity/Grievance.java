@@ -10,7 +10,9 @@ import java.util.Date;
 
 @Entity
 @Data
+
 @NoArgsConstructor
+
 public class Grievance {
 
     @Id

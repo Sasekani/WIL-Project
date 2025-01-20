@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GrievanceInterface } from '../interface/grievanceinterface';
 import { Observable } from 'rxjs';
@@ -14,7 +14,9 @@ export class GrievanceService {
 
   // Logging a grievance
   logGrievances(grievance: GrievanceInterface): Observable<any> {
-    return this.httpClient.post(this.baseUrl, grievance);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' }); 
+  
+    return this.httpClient.post(this.baseUrl, grievance, { headers }); 
   }
 
   // Getting all grievances

@@ -21,6 +21,9 @@ export class LeaveService {
   getLeaveDetails(): Observable<LeaveDetails[]> {
     return this.http.get<LeaveDetails[]>(`${this.baseUrl}`);
   }
+  
+  
+  
 
   // Method to get leave details by ID
   getLeaveDetailsById(id: number): Observable<LeaveDetails> {

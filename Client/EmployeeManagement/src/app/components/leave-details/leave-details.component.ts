@@ -18,6 +18,7 @@ export class LeaveDetailsComponent {
   constructor(private leaveService:LeaveService, private fb: FormBuilder, private router: Router){}
   ngOnInit(): void{
   this.leaveForm = this.fb.group({
+    name: ['', Validators.required], 
     email: ['', Validators.required], 
     leaveType: ['', Validators.required],
     startDate: ['', Validators.required],

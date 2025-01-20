@@ -31,3 +31,4 @@ public class PayslipService {
         payslipRepository.deleteById(id);
     }
 }
+

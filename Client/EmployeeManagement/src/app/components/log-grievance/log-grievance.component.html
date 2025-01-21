@@ -1,19 +1,18 @@
 <div class="container">
   <div class="container-fluid">
-    <!-- As a heading -->
+    <h2>Log Grievance Form</h2>
   </div>
 
   <div style="color:rgb(7, 7, 7);" class="card">
-    <div><h2 class="heading"> Log Grievance Form </h2></div>
-    <form [formGroup]="GrievanceLogForm" (ngSubmit)="logGrievances()">
+    <form [formGroup]="grievanceForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label>Email Address:</label>
         <input type="email" class="form-control" id="email" required formControlName="email" placeholder="email@gmail.com">
       </div>
-      <!-- Date the grievance was logged -->
       <div class="form-group">
         <label for="createdDate">Date Created:</label>
-        <input type="date" class="form-control" id="createdDate" formControlName="createdDate" placeholder="yyyy-MM-dd" required />      </div>
+        <input type="date" class="form-control" id="createdDate" formControlName="createdDate" placeholder="yyyy-MM-dd" required />
+      </div>
 
       <div class="form-group">
         <label>Title:</label>

@@ -1,8 +1,8 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GrievanceInterface } from '../../interface/grievanceinterface';
+import { GrievanceInterface  } from '../../interface/grievanceinterface';
 import { GrievanceService } from '../../service/grievance.service';
 
 @Component({
@@ -13,77 +13,60 @@ import { GrievanceService } from '../../service/grievance.service';
   styleUrls: ['./log-grievance.component.css'],
   providers: [DatePipe]
 })
-export class LogGrievanceComponent {
+export class LogGrievanceComponent implements OnInit {
 
-  GrievanceLogForm!: FormGroup;
-  alert: boolean = false;
-  errorMessage: string | null = null; // For displaying backend errors
+  grievanceForm!: FormGroup;
 
-  constructor(private grievanceService: GrievanceService, private fb: FormBuilder, private router: Router, private datePipe: DatePipe) { }
+  constructor(
+    private grievanceService: GrievanceService,
+    private fb: FormBuilder,
+    private datePipe: DatePipe
+  ) { }
 
   ngOnInit(): void {
-    this.GrievanceLogForm = this.fb.group({
+    this.grievanceForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      createdDate: ['', [Validators.required]],
-      title: ['', [Validators.required, Validators.minLength(2)]],
-      description: ['', [Validators.required, Validators.minLength(5)]],
-      status: ['Open'] // No need for validators here, it's a default value
+      createdDate: [this.datePipe.transform(new Date(), 'yyyy-MM-dd'), Validators.required], // Format date
+      status: ['Open', Validators.required],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
     });
   }
 
-  logGrievances() {
-    this.errorMessage = null; // Clear any previous error messages
-    if (this.GrievanceLogForm.invalid) {
-      // Improved error handling: Display specific error messages
-      Object.keys(this.GrievanceLogForm.controls).forEach(key => {
-        const controlErrors = this.GrievanceLogForm.get(key)?.errors;
-        if (controlErrors) {
-          console.log(`Error in field ${key}:`, controlErrors);
-        }
-      });
-      alert("Please fill out all required fields correctly.");
-      return;
-    }
-
-    const createdDateValue = this.GrievanceLogForm.get('createdDate')?.value;
-
-    // Check if createdDateValue is valid before transforming it
-    if (createdDateValue) {
-      const formattedDate = this.datePipe.transform(createdDateValue, 'yyyy-MM-dd');
-
+  onSubmit() {
+    if (this.grievanceForm.valid) {
       const grievance: GrievanceInterface = {
-        ...this.GrievanceLogForm.value,
-        createdDate: formattedDate! // Use the formatted date
+        email: this.grievanceForm.get('email')?.value,
+        createdDate: new Date(this.grievanceForm.get('createdDate')?.value),
+        status: this.grievanceForm.get('status')?.value,
+        title: this.grievanceForm.get('title')?.value,
+        description: this.grievanceForm.get('description')?.value,
       };
 
-      this.grievanceService.logGrievances(grievance).subscribe({
-        next: () => {
-          this.alert = true;
-          this.GrievanceLogForm.reset();
-          this.router.navigate(["grievanceList"]);
-        },
-        error: (error) => {
-          console.error("Error logging grievance:", error);
-          if (error.error && error.error.message) {
-            this.errorMessage = error.error.message; // Display backend error message
-          } else if (error.message) {
-            this.errorMessage = error.message
-          } else {
-            this.errorMessage = "An unexpected error occurred. Please try again."; // Generic error message
+      this.grievanceService.saveGrievance(grievance)
+        .subscribe({
+          next: (data) => {
+            console.log('Grievance saved:', data);
+            this.grievanceForm.reset();
+            alert("Grievance submitted successfully");
+          },
+          error: (error) => {
+            console.error('Error saving grievance:', error);
+            alert("Error submitting grievance");
           }
-          alert(this.errorMessage); // Display the error to the user. Consider a better way to display errors, like in the template.
-        }
-      });
+        });
     } else {
-      // Handle the case where the date is null or invalid.
-      this.errorMessage = "Please select a valid date.";
-      alert(this.errorMessage)
-      console.error("Created Date is invalid.");
+      console.log("form is invalid");
+      this.markFormGroupTouched(this.grievanceForm);
     }
-
   }
 
-  goToDashBoard() {
-    this.router.navigate(['/dashboard']);
+  markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach((control: any) => {
+      control.markAsTouched();
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 }

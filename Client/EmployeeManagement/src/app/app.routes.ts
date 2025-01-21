@@ -12,7 +12,6 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UpdateuserComponent } from './components/updateuser/updateuser.component';
 import { UserlistComponent } from './components/userlist/userlist.component';
-import { GrievanceManangementComponent } from './components/grievance-manangement/grievance-manangement.component';
 import { UpdateLeaveStatusComponent } from './components/update-leave-status/update-leave-status.component';
 import { adminGuard, usersGuard } from './users.guard';
 
@@ -28,7 +27,6 @@ export const routes: Routes = [
   {path:'leavelistdetails',component:LeaveDetailsListComponent},
   {path: 'loggrievance', component:LogGrievanceComponent},
   {path: 'grievanceList', component:GrievanceListComponent},
-  {path: 'grievancemangement', component:GrievanceManangementComponent},
   {path: 'home', component:HomeComponent},
   {path: 'register', component: RegisterComponent, canActivate: [adminGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [usersGuard]},

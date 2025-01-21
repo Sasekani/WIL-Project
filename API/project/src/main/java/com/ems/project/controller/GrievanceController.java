@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/grievance")
@@ -20,43 +21,41 @@ public class GrievanceController {
     }
 
     @PostMapping
-    public ResponseEntity<Grievance> saveGrievance(@RequestBody Grievance grievance) {
-        try {
-            Grievance savedGrievance = grievanceService.saveGrievance(grievance);
-            return new ResponseEntity<>(savedGrievance, HttpStatus.CREATED); // 201 Created
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 500
-        }
-    }
-
-    @PostMapping("/test")
-    public String test(Grievance grievance) {
-        return grievance.getEmail();
-    }
-
-    @GetMapping("/{email}")
-    public Grievance findByEmail(@PathVariable String email) {
-        return grievanceService.getGrievanceByEmail(email);
+    public Grievance saveGrievance(@RequestBody Grievance grievance) {
+        return grievanceService.saveGrievance(grievance);
     }
 
     @GetMapping
     public List<Grievance> getAllGrievances() {
-        return grievanceService.getGrievances();
+        return grievanceService.getAllGrievances();
     }
 
-    @GetMapping("/{id}")
-    public Grievance getById(@PathVariable Long id) {
-        // Updated to handle Optional<Grievance>
-        return grievanceService.getGrievanceDetailsById(id)
-                .orElseThrow(() -> new NoSuchElementException("Grievance not found with id: " + id));
+    @GetMapping("/{email}")
+    public Grievance getGrievanceByEmail(@PathVariable String email) {
+        return grievanceService.getGrievanceByEmail(email);
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Grievance> getGrievanceById(@PathVariable Long id) {
+        Optional<Grievance> grievance = grievanceService.getGrievanceById(id);
+        return grievance.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteGrievance(@PathVariable Long id) {
+        grievanceService.deleteGrievance(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/{id}")
-    public Grievance updateGrievance(@PathVariable Long id, @RequestBody Grievance grievance) {
-
-        Grievance updatedDetails = grievanceService.updateGrievanceDetails(id, grievance);
-        return  updatedDetails;
+    public ResponseEntity<Grievance> updateGrievance(@PathVariable Long id, @RequestBody Grievance updatedGrievance) {
+        Grievance grievance = grievanceService.updateGrievance(id, updatedGrievance);
+        if (grievance != null) {
+            return new ResponseEntity<>(grievance, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

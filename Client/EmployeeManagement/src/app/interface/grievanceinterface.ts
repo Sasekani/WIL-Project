@@ -1,10 +1,9 @@
 export interface GrievanceInterface {
-    id : Number,
-    email:String,
+    id ?: number,
+    email:string,
     createdDate:Date,
-    status: String,
-    title: String,
-    description:String,
+    status: string,
+    title: string,
+    description:string,
 
-   
 }

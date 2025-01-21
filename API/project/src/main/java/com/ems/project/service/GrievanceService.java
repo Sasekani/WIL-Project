@@ -19,47 +19,38 @@ public class GrievanceService {
         this.grievanceRepository = grievanceRepository;
     }
 
-    public List<Grievance> getGrievances() {
+    public Grievance saveGrievance(Grievance grievance) {
+        return grievanceRepository.save(grievance);
+    }
+
+    public List<Grievance> getAllGrievances() {
         return grievanceRepository.findAll();
     }
 
-    public Grievance saveGrievance(Grievance grievance) {
-        if (grievance == null) {
-            throw new IllegalArgumentException("Grievance cannot be null."); // Very important null check
-        }
-        try {
-            return grievanceRepository.save(grievance);
-        } catch (Exception e) {
-            // Log the exception details for debugging (use a logger, not printStackTrace in production)
-            e.printStackTrace(); // For now, this is okay for local testing
-            throw new GrievanceSaveException("Error saving grievance: " + e.getMessage(), e); // More specific exception
-        }
-    }
-
     public Grievance getGrievanceByEmail(String email) {
-        return grievanceRepository.findByEmail(email); // Potential NullPointerException if no grievance found
+        return grievanceRepository.findByEmail(email);
+
+
     }
 
-    public Optional<Grievance> getGrievanceDetailsById(long id) {
+    public Optional<Grievance> getGrievanceById(Long id) {
         return grievanceRepository.findById(id);
     }
 
-    public Grievance updateGrievanceDetails(long id, Grievance grievance) {
-        return grievanceRepository.findById(id)
-                .map(existingGrievanceDetails -> {
-                    existingGrievanceDetails.setEmail(grievance.getEmail());
-                    existingGrievanceDetails.setTitle(grievance.getTitle());
-                    existingGrievanceDetails.setDescription(grievance.getDescription());
-                    existingGrievanceDetails.setStatus(grievance.getStatus());
-                    return grievanceRepository.save(existingGrievanceDetails);
-                })
-                .orElseThrow(() -> new EntityNotFoundException("Grievance not found with id: " + id));
+    public void deleteGrievance(Long id) {
+        grievanceRepository.deleteById(id);
     }
-}
 
-// Custom Exception (Good Practice)
-class GrievanceSaveException extends RuntimeException {
-    public GrievanceSaveException(String message, Throwable cause) {
-        super(message, cause);
+    public Grievance updateGrievance(Long id, Grievance updatedGrievance) {
+        return grievanceRepository.findById(id)
+                .map(grievance -> {
+                    grievance.setEmail(updatedGrievance.getEmail());
+                    grievance.setTitle(updatedGrievance.getTitle());
+                    grievance.setDescription(updatedGrievance.getDescription());
+                    grievance.setStatus(updatedGrievance.getStatus());
+
+                    return grievanceRepository.save(grievance);
+                })
+                .orElse(null);
     }
 }

@@ -24,7 +24,7 @@ export class GrievanceListComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     try {
       // Get all grievances without filtering based on user role
-      this.grievanceService.getAllGrievance().subscribe(
+      this.grievanceService.getAllGrievances().subscribe(
         (data: GrievanceInterface[]) => {
           this.grievanceArray = data;
         },

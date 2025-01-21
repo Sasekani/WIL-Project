@@ -8,40 +8,31 @@ import { Observable } from 'rxjs';
 })
 export class GrievanceService {
 
-  private baseUrl = "http://localhost:8080/grievance";
+  constructor(private http: HttpClient) { }
 
-  constructor(private httpClient: HttpClient) { }
+  baseUrl = 'http://localhost:8080/grievance';
 
-  // Logging a grievance
-  logGrievances(grievance: GrievanceInterface): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' }); 
-  
-    return this.httpClient.post(this.baseUrl, grievance, { headers }); 
+  saveGrievance(grievance: GrievanceInterface) {
+    return this.http.post<GrievanceInterface>(this.baseUrl, grievance);
   }
 
-  // Getting all grievances
-  getAllGrievance(): Observable<GrievanceInterface[]> {
-    return this.httpClient.get<GrievanceInterface[]>(this.baseUrl);
+  getAllGrievances() {
+    return this.http.get<GrievanceInterface[]>(this.baseUrl);
   }
 
-  // Getting grievances by email
-  grievanceByEmail(userEmailAddress: string): Observable<GrievanceInterface[]> {
-    return this.httpClient.get<GrievanceInterface[]>(`${this.baseUrl}/${userEmailAddress}`);
+  getGrievanceByEmail(email: string) {
+    return this.http.get<GrievanceInterface>(`${this.baseUrl}/${email}`);
   }
 
-  // Updating status by ID
-  updateGrievanceStatus(grievanceId: number, newStatus: string): Observable<object> {
-    const url = `${this.baseUrl}/${grievanceId}?status=${newStatus}`;
-    return this.httpClient.put(url, {});
+  getGrievanceById(id: number) {
+    return this.http.get<GrievanceInterface>(`${this.baseUrl}/id/${id}`);
   }
 
-  // Getting grievance details by ID
-  getGrievanceDetailsById(id: number): Observable<GrievanceInterface> {
-    return this.httpClient.get<GrievanceInterface>(`${this.baseUrl}/${id}`);
+  updateGrievance(id: number, grievance: GrievanceInterface) {
+    return this.http.put<GrievanceInterface>(`${this.baseUrl}/${id}`, grievance);
   }
 
-  // Updating grievance details
-  updateGrievanceDetails(id: number, grievance: Partial<GrievanceInterface>): Observable<GrievanceInterface> {
-    return this.httpClient.put<GrievanceInterface>(`${this.baseUrl}/${id}`, grievance);
+  deleteGrievance(id: number) {
+    return this.http.delete(`${this.baseUrl}/${id}`);
   }
 }

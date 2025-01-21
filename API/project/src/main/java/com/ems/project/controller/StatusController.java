@@ -23,10 +23,10 @@ public class StatusController {
         this.grievanceService = grievanceService;
     }
 
-    @PostMapping("/grievance/{grievanceId}")
-    public ResponseEntity<Status> createStatus(@PathVariable Long grievanceId, @RequestBody Status status) {
+    @PostMapping("/grievance/{id}")
+    public ResponseEntity<Status> createStatus(@PathVariable Long id, @RequestBody Status status) {
         try {
-            Grievance grievance = grievanceService.getGrievanceDetailsById(grievanceId)
+            Grievance grievance = grievanceService.getGrievanceById(id)
                     .orElseThrow(() -> new NoSuchElementException("Grievance not found"));
             status.setGrievance(grievance);
             Status createdStatus = statusService.saveStatus(status);
@@ -52,7 +52,7 @@ public class StatusController {
     @GetMapping("/grievance/{grievanceId}")
     public ResponseEntity<List<Status>> getStatusesByGrievance(@PathVariable Long grievanceId) {
         try {
-            Grievance grievance = grievanceService.getGrievanceDetailsById(grievanceId)
+            Grievance grievance = grievanceService.getGrievanceById(grievanceId)
                     .orElseThrow(() -> new NoSuchElementException("Grievance not found"));
             List<Status> statuses = statusService.getStatusesByGrievance(grievance);
             return ResponseEntity.ok(statuses);

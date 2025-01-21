@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -25,7 +26,10 @@ public class Grievance {
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false)
-    private Date createdate;
+    private Timestamp createdDate;
+
+    @Transient // This field is not persisted in the database
+    private String createdDateString;
 
     @Column(nullable = false, length = 50)
     private String title;
@@ -45,8 +49,8 @@ public class Grievance {
         return email;
     }
 
-    public Date getCreatedate() {
-        return createdate;
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 
     public String getTitle() {
@@ -70,8 +74,8 @@ public class Grievance {
         this.email = email;
     }
 
-    public void setCreatedate(Date createdate) {
-        this.createdate = createdate;
+    public void setCreatedDate(Timestamp createdate) {
+        this.createdDate = createdate;
     }
 
     public void setTitle(String title) {
@@ -86,4 +90,11 @@ public class Grievance {
         this.status = status;
     }
 
+    public String getCreatedDateString() {
+        return createdDateString;
+    }
+
+    public void setCreatedDateString(String createdDateString) {
+        this.createdDateString = createdDateString;
+    }
 }

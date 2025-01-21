@@ -2,10 +2,13 @@ package com.ems.project.service;
 
 import com.ems.project.entity.Grievance;
 import com.ems.project.repository.GrievanceRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,10 +22,23 @@ public class GrievanceService {
         this.grievanceRepository = grievanceRepository;
     }
 
+//    public Grievance saveGrievance(Grievance grievance) {
+//        return grievanceRepository.save(grievance);
+//    }
+
     public Grievance saveGrievance(Grievance grievance) {
+        String createdDateString = grievance.getCreatedDateString();
+        if(createdDateString != null && !createdDateString.isEmpty()) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date parsedDate = format.parse(createdDateString);
+                grievance.setCreatedDate(new Timestamp(parsedDate.getTime()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         return grievanceRepository.save(grievance);
     }
-
     public List<Grievance> getAllGrievances() {
         return grievanceRepository.findAll();
     }

@@ -10,7 +10,7 @@ export class GrievanceService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://localhost:8080/grievance';
+  baseUrl = 'http://localhost:8081/grievance';
 
   saveGrievance(grievance: GrievanceInterface) {
     return this.http.post<GrievanceInterface>(this.baseUrl, grievance);

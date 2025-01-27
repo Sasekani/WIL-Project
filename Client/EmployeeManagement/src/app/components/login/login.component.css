@@ -15,8 +15,7 @@
     min-width: 400px; /* Minimum width */
     max-width: 600px;
     width: 90%;
-    box-shadow: 0 4px 8px #333; /* Increased blur radius */
-    
+    box-shadow: 0 4px 8px #333; /* Increased blur radius */ 
 }
 
 h2 {

@@ -27,7 +27,7 @@
             <td>{{logGrievances.title}}</td>
             <td >{{logGrievances.description}}</td>
             <td>{{logGrievances.status}}</td>
-             <td><button class="reg-button"  (click)="goToGrievanceList()">Update</button></td>
+            <td><button class="reg-button" (click)="logGrievances.id ? update(logGrievances.id) : null">Update</button></td>
           </tr>
         </tbody>
     

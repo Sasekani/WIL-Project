@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PayslipService } from '../../service/payslip.service';
+import { Payslip } from '../../payslip';
 
 @Component({
   selector: 'app-salary',
@@ -18,27 +20,35 @@ export class SalaryComponent {
   payPeriod!:String;
   email!:String;
 
+  payslip!:Payslip;
   private baseUrl = ["http://localhost:8080"];
 
 
-  constructor(private http: HttpClient, private router:Router ) {
+  constructor(private http: HttpClient, private router:Router , private payslipService: PayslipService) {
 
   }
-
 
   save(){
     let bodyData={
       "email":this.email,
       "grossPay":this.grossPay,
       "deductions":this.deductions,
-      "payPeriod": this.payPeriod
+      "payPeriod": this.payPeriod,
+      "netPay": this.grossPay - this.deductions
     };
-    this.http.post(this.baseUrl+"/auth/save",bodyData,{responseType:'text'}).subscribe((resultData:any )=>
-    {
-        console.log(resultData);
-        alert("Salary Paid ");
-        this.router.navigate(['/users'])
-    });
-  }
 
+    this.payslip.deductions = this.deductions;
+    this.payslip.email = this.email;
+    this.payslip.grossPay = this.grossPay;
+    this.payslip.netPay = this.grossPay - this.deductions;
+    this.payslip.payPeriod = this.payPeriod;
+    
+    try {
+      let salaryResponse = this.payslipService.savePayslip(this.payslip);
+      console.log(salaryResponse);
+      alert("Salary Paid ");
+      this.router.navigate(['/Payslips'])
+    } catch (error: any) {
+  }
+  }
 }

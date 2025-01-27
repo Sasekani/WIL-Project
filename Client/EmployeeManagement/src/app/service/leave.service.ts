@@ -10,7 +10,7 @@ export class LeaveService {
 
   constructor(private http: HttpClient) { }
 
-  private baseUrl = "http://localhost:8080/leave";
+  private baseUrl = "http://localhost:8081/leave";
 
   // Method to apply leave
   applyLeave(leaveDetails: LeaveDetails): Observable<object> {

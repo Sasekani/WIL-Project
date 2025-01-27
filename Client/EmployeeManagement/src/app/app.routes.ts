@@ -14,6 +14,7 @@ import { UpdateuserComponent } from './components/updateuser/updateuser.componen
 import { UserlistComponent } from './components/userlist/userlist.component';
 import { UpdateLeaveStatusComponent } from './components/update-leave-status/update-leave-status.component';
 import { adminGuard, usersGuard } from './users.guard';
+import { UpdateGrievanceComponent } from './update-grievance/update-grievance.component';
 
 export const routes: Routes = [
   
@@ -26,6 +27,7 @@ export const routes: Routes = [
   {path:'updateStatus',component:UpdateLeaveStatusComponent},
   {path:'leavelistdetails',component:LeaveDetailsListComponent},
   {path: 'loggrievance', component:LogGrievanceComponent},
+  {path: 'updateGrievance/:id', component:UpdateGrievanceComponent},
   {path: 'grievanceList', component:GrievanceListComponent},
   {path: 'home', component:HomeComponent},
   {path: 'register', component: RegisterComponent, canActivate: [adminGuard]},

@@ -41,9 +41,15 @@ export class GrievanceListComponent implements OnInit {
     this.router.navigate(['/dashboard']);
   }
 
-  goToGrievanceList() {
-    this.router.navigate(['/grievancemangement']);
+  update(id: number | undefined) {
+    if (id !== undefined) {
+      this.router.navigate([`/updateGrievance/${id}`]);
+    } else {
+      // Handle case when id is undefined, e.g., log an error or show a message
+      console.error("Grievance ID is undefined.");
+    }
   }
+  
 
   showError(mess: string) {
     this.errorMessage = mess;

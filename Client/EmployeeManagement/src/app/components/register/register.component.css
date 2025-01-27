@@ -1,19 +1,21 @@
 .body {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    min-height: 100vh;
-    margin: 0; /* Ensure full viewport height */
+
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  min-height: 100vh; /* Ensure full viewport height */
+  /* background-color: #f3f3f3; */
   }
-  
+
   .container {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    width: 80%; /* Reduce the width */
-    max-width: 450px; /* Set a maximum width */
-    box-shadow: 0 4px 8px #333; /* Increased blur radius */
-  }
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    min-width: 400px; /* Minimum width */
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 4px 8px #333; /* Increased blur radius */ 
+}
   
   h2 {
     text-align: center;
@@ -48,7 +50,7 @@
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 1.1rem;
-    height: 40px;
+    height: 50px;
   }
   
   .button-container {
@@ -78,4 +80,5 @@
     text-align: center;
     margin-bottom: 10px;
   }
+  
   

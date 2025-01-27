@@ -37,7 +37,7 @@ export class LogGrievanceComponent implements OnInit {
     if (this.grievanceForm.valid) {
         const grievance: GrievanceInterface = {
             email: this.grievanceForm.get('email')?.value,
-            createdDate: this.grievanceForm.get('createdDate')?.value, // Send raw date string
+            createdDate: this.grievanceForm.get('createdDate')?.value, 
             status: this.grievanceForm.get('status')?.value,
             title: this.grievanceForm.get('title')?.value,
             description: this.grievanceForm.get('description')?.value,
